@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WakeUpWell</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_alarm_receiver">AlarmReceiver</string>
+    <string name="title_activity_awaken_screen">AwakenScreen</string>
+
+</resources>

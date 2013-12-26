@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jfrantz.wakeupwell"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.jfrantz.wakeupwell.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.jfrantz.wakeupwell.AlarmReceiver"
+            android:label="@string/title_activity_alarm_receiver" >
+        </activity>
+        <activity
+            android:name="com.jfrantz.wakeupwell.AwakenScreen"
+            android:label="@string/title_activity_awaken_screen" >
+        </activity>
+    </application>
+
+</manifest>
