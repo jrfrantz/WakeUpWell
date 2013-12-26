@@ -2,12 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="64dp"
+    
+    tools:context=".MainActivity$PlaceholderFragment">
+<!-- android:paddingLeft="64dp"
     android:paddingRight="64dp"
     android:paddingTop="64dp"
     android:paddingBottom="64dp"
-    tools:context=".MainActivity$PlaceholderFragment">
-
+ -->
     <TextView
         android:text="@string/hello_world"
         android:layout_width="wrap_content"
