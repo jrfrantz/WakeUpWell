@@ -14,6 +14,8 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import com.belkin.wemo.localsdk.WeMoSDKContext;
+
 public class MainActivity extends Activity {
 
     private AlarmManager alarmMgr;
@@ -25,6 +27,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        System.out.println(android.os.Build.VERSION.SDK_INT);
 
         alarmMgr = (AlarmManager)this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this.getApplicationContext(), AlarmReceiver.class);
@@ -58,6 +62,7 @@ public class MainActivity extends Activity {
         tv.setText("Next alarm is set for " + sdf.format(cal.getTime()));
 
         System.out.println("Set alarm for "+cal);
+        System.out.println("AKA "+sdf.format(cal.getTime()));
         alarmMgr.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmIntent);
     }
 }

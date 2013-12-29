@@ -28,6 +28,20 @@
         android:layout_below="@id/alarm_time"
         android:layout_marginTop="10dp"
         android:text="Set Alarm"
+        android:id="@+id/button_setalarm"
         android:onClick="alarmSet"/>
-
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/button_setalarm"
+        android:layout_marginTop="10dp"
+        android:text="Connect to network"
+        android:id="@+id/button_test"/>
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/button_test"
+        android:layout_marginTop="10dp"
+        android:text="Toggle on/off"
+        android:id="@+id/button_toggle"/>
 </RelativeLayout>

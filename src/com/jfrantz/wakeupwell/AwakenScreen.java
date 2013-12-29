@@ -33,11 +33,14 @@ public class AwakenScreen extends Activity implements NotificationListener {
         setContentView(R.layout.activity_awaken_screen);
         
         mWeMoSDKContext = new WeMoSDKContext(getApplicationContext());
+        System.out.println(mWeMoSDKContext);
         mWeMoSDKContext.addNotificationListener(this);
-        mWeMoSDKContext.refreshListOfWeMoDevicesOnLAN();
+
         
         toggleHeatButton = (Button) findViewById(R.id.button_heater_off);
         setUpToggle();
+        
+        mWeMoSDKContext.refreshListOfWeMoDevicesOnLAN();
     }
     
     private void setUpToggle() {
@@ -72,13 +75,21 @@ public class AwakenScreen extends Activity implements NotificationListener {
 
 	@Override
 	public void onNotify(String event, String notifUdn) {
+		System.out.println("notif " + event + notifUdn);
 		if (event.equals(WeMoSDKContext.REFRESH_LIST)) {
+			System.out.println("got a refresh");
 			ArrayList<String> udns = mWeMoSDKContext.getListOfWeMoDevicesOnLAN();
+			System.out.println(udns);
 			for (String udn : udns) {
 				WeMoDevice dev = mWeMoSDKContext.getWeMoDeviceByUDN(udn);
+				System.out.println("Made dev " + dev);
+				System.out.println(dev.getType() + " ? " + WeMoDevice.SWITCH);
 				if (dev.getType().equals(WeMoDevice.SWITCH)) {
+					System.out.println("hello");
 					switchDev = dev;
 					udnDev = udn;
+					boolean on = switchDev.getState().equals(WeMoDevice.WEMO_DEVICE_ON);
+					changeButtonState(on ? HEATER_ON : HEATER_OFF);
 				}
 			}
 		} else if (event.equals(WeMoSDKContext.CHANGE_STATE) ||
@@ -91,18 +102,15 @@ public class AwakenScreen extends Activity implements NotificationListener {
 			WeMoDevice tempDev = mWeMoSDKContext.getWeMoDeviceByUDN(notifUdn);
 			if (tempDev.getState().equals(WeMoDevice.WEMO_DEVICE_ON)) {
 				// device is on, adjust button accordingly
-				toggleHeatButton.setEnabled(true);
-				toggleHeatButton.setText(HEATER_ON);
+				changeButtonState(HEATER_ON);
 			} else if (tempDev.getState().equals(WeMoDevice.WEMO_DEVICE_OFF)){
-				toggleHeatButton.setEnabled(true);
-				toggleHeatButton.setText(HEATER_OFF);
+				changeButtonState(HEATER_OFF);
 			}
 		} else if (event.equals(WeMoSDKContext.REMOVE_DEVICE) && notifUdn.equals(udnDev)) {
 			// device has gone dark
 			udnDev = null;
 			switchDev = null;
-			toggleHeatButton.setText(HEATER_DISABLED);
-			toggleHeatButton.setEnabled(false);
+			changeButtonState(HEATER_DISABLED);
 			mWeMoSDKContext.refreshListOfWeMoDevicesOnLAN();
 			Toast.makeText(getApplicationContext(), "Lost connection with switch", Toast.LENGTH_LONG).show();
 			System.out.println("lost connection w switch");
@@ -114,4 +122,42 @@ public class AwakenScreen extends Activity implements NotificationListener {
 		super.onDestroy();
 	}
 
+	/* B/C callback must run from UI thread */
+	public void changeButtonState(String desired) {
+		Runnable r = null;
+		if (desired.equals(HEATER_ON)) {
+			r = BUTTON_SAYS_ON;
+		} else if (desired.equals(HEATER_OFF)) {
+			r = BUTTON_SAYS_OFF;
+		} else if (desired.equals(HEATER_DISABLED)) {
+			r = BUTTON_NOT_CONNECTED;
+		} else if (desired.equals(HEATER_WAITING_RESPONSE)) {
+			r = BUTTON_WAITING;
+		}
+		runOnUiThread(r);
+	}
+	private final Runnable BUTTON_SAYS_ON = new Runnable() {
+		public void run() {
+			toggleHeatButton.setEnabled(true);
+			toggleHeatButton.setText(HEATER_ON);
+		}
+	};
+	private final Runnable BUTTON_SAYS_OFF = new Runnable() {
+		public void run() {
+			toggleHeatButton.setEnabled(true);
+			toggleHeatButton.setText(HEATER_OFF);
+		}
+	};
+	private final Runnable BUTTON_NOT_CONNECTED = new Runnable() {
+		public void run() {
+			toggleHeatButton.setEnabled(false);
+			toggleHeatButton.setText(HEATER_DISABLED);
+		}
+	};
+	private final Runnable BUTTON_WAITING = new Runnable() {
+		public void run() {
+			toggleHeatButton.setEnabled(false);
+			toggleHeatButton.setText(HEATER_WAITING_RESPONSE);
+		}
+	};
 }

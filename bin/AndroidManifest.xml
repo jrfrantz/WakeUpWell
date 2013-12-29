@@ -3,7 +3,15 @@
     package="com.jfrantz.wakeupwell"
     android:versionCode="1"
     android:versionName="1.0" >
-
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
@@ -22,14 +30,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.jfrantz.wakeupwell.AlarmReceiver"
-            android:label="@string/title_activity_alarm_receiver" >
-        </activity>
-        <activity
+		<activity
             android:name="com.jfrantz.wakeupwell.AwakenScreen"
             android:label="@string/title_activity_awaken_screen" >
         </activity>
+        <receiver android:name="com.jfrantz.wakeupwell.AlarmReceiver"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.jfrantz.wakeupwell.MainActivity" />
+            </intent-filter>
+		</receiver>
+
     </application>
 
 </manifest>
