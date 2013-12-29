@@ -6,16 +6,16 @@ A different way to be woken up in the morning. Instead of being woken by the ann
 
 Currently Implemented
 ========
-Set an alarm
-Connect to device
-Turn device on when alarm goes off
-Toggle device on/off
+- Set an alarm
+- Connect to device
+- Turn device on when alarm goes off
+- Toggle device on/off
 
 Not Yet Implemented
 =====
-Dealing with several WeMos in range
-Text-To-Speech on the weather
-Text-To-Speech on daily calendar events
-Displaying useful information on the tablet
-Turn screen on when alarm goes off
-Turn heater off automatically after x minutes
+- Dealing with several WeMos in range
+- Text-To-Speech on the weather
+- Text-To-Speech on daily calendar events
+- Displaying useful information on the tablet
+- Turn screen on when alarm goes off
+- Turn heater off automatically after x minutes
