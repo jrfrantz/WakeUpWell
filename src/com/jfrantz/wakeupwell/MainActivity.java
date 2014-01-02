@@ -18,7 +18,8 @@ import com.belkin.wemo.localsdk.WeMoSDKContext;
 
 public class MainActivity extends Activity {
 
-    private AlarmManager alarmMgr;
+    public static int MINUTES_BEFORE = 5;
+	private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
 
     private TimePicker timeP;
@@ -56,6 +57,8 @@ public class MainActivity extends Activity {
         cal.set(Calendar.HOUR_OF_DAY, h);
         cal.set(Calendar.MINUTE, m);
         cal.set(Calendar.SECOND, 0);
+        
+        cal.add(Calendar.MINUTE, -1*MINUTES_BEFORE);
 
         TextView tv = (TextView) findViewById(R.id.hello_tv);
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
@@ -64,5 +67,19 @@ public class MainActivity extends Activity {
         System.out.println("Set alarm for "+cal);
         System.out.println("AKA "+sdf.format(cal.getTime()));
         alarmMgr.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmIntent);
+    }
+    public void alarmCancel(View v) {
+    	Toast.makeText(this, "Alarm cancelled", Toast.LENGTH_SHORT).show();
+    	if (alarmMgr == null) {
+    		alarmMgr = (AlarmManager) this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+    	}
+    	if (alarmIntent == null) {
+            Intent intent = new Intent(this.getApplicationContext(), AlarmReceiver.class);
+            alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+    	}
+    	alarmMgr.cancel(alarmIntent);
+    	
+    	TextView tv = (TextView) findViewById(R.id.hello_tv);
+    	tv.setText(R.string.no_alarms_set);
     }
 }

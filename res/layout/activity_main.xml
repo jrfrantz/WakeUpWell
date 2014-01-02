@@ -4,17 +4,22 @@
     android:layout_height="match_parent"
     
     tools:context=".MainActivity$PlaceholderFragment">
-<!-- android:paddingLeft="64dp"
-    android:paddingRight="64dp"
-    android:paddingTop="64dp"
-    android:paddingBottom="64dp"
- -->
+    
     <TextView
-        android:text="@string/hello_world"
+        android:text="@string/no_alarms_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:id="@+id/hello_tv"/>
-
+	<Button
+	    android:text="Cancel Alarm"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:id="@+id/cancel_alarm"
+	    android:onClick="alarmCancel"/>
     <TimePicker
         android:id="@+id/alarm_time"
         android:layout_height="wrap_content"
@@ -22,6 +27,10 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/hello_tv">
     </TimePicker>
+    <TextView 
+        android:text="What do you want to do right when you wake up tomorrow?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <Button
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -30,18 +39,4 @@
         android:text="Set Alarm"
         android:id="@+id/button_setalarm"
         android:onClick="alarmSet"/>
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_below="@id/button_setalarm"
-        android:layout_marginTop="10dp"
-        android:text="Connect to network"
-        android:id="@+id/button_test"/>
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_below="@id/button_test"
-        android:layout_marginTop="10dp"
-        android:text="Toggle on/off"
-        android:id="@+id/button_toggle"/>
 </RelativeLayout>

@@ -9,9 +9,12 @@
     tools:context="com.jfrantz.wakeupwell.AwakenScreen$PlaceholderFragment">
 
     <TextView
-        android:text="@string/hello_world"
+        android:text="Hello World"
+        android:id="@+id/tv_awake_hello"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:maxLines="30"
+        android:scrollbars="vertical" />
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
